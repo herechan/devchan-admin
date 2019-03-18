@@ -1,6 +1,7 @@
 const path = require('path');
 const pagesPath = path.resolve(__dirname, './views/pages/')
 const HtmlWebpackPlugin = require("html-webpack-plugin")
+const VueLoaderPlugin = require('vue-loader/lib/plugin')
 module.exports = {
     entry:{
         twtter:`${pagesPath}/twitter/index.js`,
@@ -10,6 +11,11 @@ module.exports = {
         filename:'[name].js',
         path:__dirname + '/dist'
     },
+    resolve:{
+        alias:{
+            siderbarPath:path.resolve(__dirname, './views/widget/siderbar/')
+        }
+    },
     module:{
         rules:[
             {
@@ -18,19 +24,24 @@ module.exports = {
             },
             {
                 test: /\.m?js$/,
-                exclude: /(node_modules|bower_components)/,
+                exclude:(file)=>{
+                    /node_modules/.test(file) &&
+                    !/\.vue\.js/.test(file) // 确保在node_modules中的vue文件能够被转义
+                },
                 use: { loader: 'babel-loader' }
             },
             {
                 test: /\.less$/,
-                use: [{
-                       loader: "style-loader" // creates style nodes from JS strings
-                    },{
-                        loader: "css-loader" // translates CSS into CommonJS
-                    },{
-                        loader: "less-loader" // compiles Less to CSS
-                    }]
-            }
+                use: [
+                    'vue-style-loader',
+                    'css-loader',
+                    'less-loader'
+                ]
+            },
+            {
+                test: /\.vue$/,
+                loader: 'vue-loader'
+              }
         ]
     },
     devServer: {
@@ -67,6 +78,7 @@ module.exports = {
             templateParameters:{
                 title:"Article"
             }
-        })
+        }),
+        new VueLoaderPlugin()
     ]
 }

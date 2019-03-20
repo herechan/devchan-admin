@@ -41,6 +41,7 @@
     "webpack-dev-server": "^3.2.1"
   },
   "dependencies": {
+    "element-ui": "^2.6.1",
     "vue": "^2.6.9"
   }
 }

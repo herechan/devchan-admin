@@ -13,7 +13,7 @@ module.exports = {
     },
     resolve:{
         alias:{
-            siderbarPath:path.resolve(__dirname, './views/widget/siderbar/')
+            '@siderbar':path.resolve(__dirname, './views/widget/siderbar/')
         }
     },
     module:{
@@ -24,9 +24,9 @@ module.exports = {
             },
             {
                 test: /\.m?js$/,
-                exclude:(file)=>{
+                exclude: (file) => {
                     /node_modules/.test(file) &&
-                    !/\.vue\.js/.test(file) // 确保在node_modules中的vue文件能够被转义
+                        !/\.vue\.js/.test(file) // 确保在node_modules中的vue文件能够被转义
                 },
                 use: { loader: 'babel-loader' }
             },
@@ -41,7 +41,16 @@ module.exports = {
             {
                 test: /\.vue$/,
                 loader: 'vue-loader'
-              }
+            },
+            {
+                test: /\.(eot|woff|woff2|ttf)([\\?]?.*)$/,
+                loader: "file-loader"
+            },
+            {
+                test: /\.css$/,
+                loader: "css-loader"
+            },
+            {test:/\.(jpg|png|jpeg|gif)$/,loader:"url-loader"}
         ]
     },
     devServer: {

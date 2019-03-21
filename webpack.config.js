@@ -2,10 +2,12 @@ const path = require('path');
 const pagesPath = path.resolve(__dirname, './views/pages/')
 const HtmlWebpackPlugin = require("html-webpack-plugin")
 const VueLoaderPlugin = require('vue-loader/lib/plugin')
+const webpack = require("webpack")
 module.exports = {
     entry:{
         twtter:`${pagesPath}/twitter/index.js`,
-        article:`${pagesPath}/article/index.js`
+        article:`${pagesPath}/article/index.js`,
+        vue:'vue'
     },
     output:{
         filename:'[name].js',
@@ -68,6 +70,7 @@ module.exports = {
             title:"twitter",
             template:`${pagesPath}/twitter/index.html`, 
             filename:"twitter.html",
+            chunks:['twitter','vue'],// 当前页面需要的js
             inject:true,
             minify:true,
             hash:true,
@@ -80,6 +83,7 @@ module.exports = {
             title:"twitter",
             template:`${pagesPath}/article/index.html`, 
             filename:"article.html",
+            chunks:['article','vue'],
             inject:true,
             minify:true,
             hash:true,
@@ -88,6 +92,7 @@ module.exports = {
                 title:"Article"
             }
         }),
-        new VueLoaderPlugin()
+        new VueLoaderPlugin(),
+            
     ]
 }

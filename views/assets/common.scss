@@ -1,0 +1,90 @@
+$mainColor:#38b7ea;
+// $mainColor:#409EFF;
+$borderColor:#eceff2;
+$targetColor:#898d92;
+$fontColor:#565a5f;
+$bgColor:#f5f8f9;
+$ccc:#ccc;
+$asideColor:#777;
+$asideHoverColor:#333;
+$pageColor:#999;
+$pageBtnDis:#c0c4cc;
+$weiboPadding:20px;
+$shadow: 0 2px 3px -1px rgba(0, 0, 0, 0.2);
+$cardPadding:10px 20px;
+$cardBg:#fff;
+$asideDevider:#eee;
+$red:#F44336;
+$yellow:#fdd835;
+$green:#67C23A;
+$searchBg:#F7F7F7;
+$page404:#EAE9E8;
+$searchSub:#9a9a9a;
+@mixin cardBorder {
+    border: 1px solid #eceff2;
+    border-bottom: none;
+    box-shadow: 0 2px 3px -1px rgba(0, 0, 0, 0.2);
+  }
+  body {
+    color: #565a5f;
+    min-height: 100vh;
+    background-color: $bgColor;
+    font-size: 14px;
+    padding-right: 0!important;
+    margin: 0;
+  }
+  @font-face {
+    font-family: 'iconfont';  /* project id 705325 */
+    src: url('//at.alicdn.com/t/font_705325_nnhyywkuxl.eot');
+    src: url('//at.alicdn.com/t/font_705325_nnhyywkuxl.eot?#iefix') format('embedded-opentype'),
+    url('//at.alicdn.com/t/font_705325_nnhyywkuxl.woff') format('woff'),
+    url('//at.alicdn.com/t/font_705325_nnhyywkuxl.ttf') format('truetype'),
+    url('//at.alicdn.com/t/font_705325_nnhyywkuxl.svg#iconfont') format('svg');
+  }
+  .iconfont {
+    font-family: "iconfont" !important;
+    font-size: 16px;
+    font-style: normal;
+    -webkit-font-smoothing: antialiased;
+    -webkit-text-stroke-width: 0.2px;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  .li-none li {
+    list-style: none;
+  }
+  a {
+    text-decoration: none;
+    color: #565a5f;
+  }
+  .clearfix:after {
+    visibility: hidden;
+    display: block;
+    font-size: 0;
+    content: "";
+    clear: both;
+    height: 0;
+  }
+  
+  .clearfix {
+    zoom: 1;
+  }
+  .fl{
+      float: left;
+  }
+  .fr{
+      float: right;
+  }
+  .elli{
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+  .page-enter-active, .page-leave-active {
+    transition: opacity .3s;
+  }
+  .page-enter, .page-leave-active {
+    opacity: 0;
+  }
+  .filter-blur {
+    filter: blur(2px);
+  }

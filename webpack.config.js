@@ -1,8 +1,7 @@
 const path = require('path');
 const pagesPath = path.resolve(__dirname, './views/pages/')
-const HtmlWebpackPlugin = require("html-webpack-plugin")
-const VueLoaderPlugin = require('vue-loader/lib/plugin')
-const webpack = require("webpack")
+const rulesConfig = require('./build/webpack.rules')
+const pluginsConfig = require('./build/webpack.plugin')
 module.exports = {
     entry:{
         twtter:`${pagesPath}/twitter/index.js`,
@@ -15,45 +14,13 @@ module.exports = {
     },
     resolve:{
         alias:{
-            '@siderbar':path.resolve(__dirname, './views/widget/siderbar/')
+            '@siderbar':path.resolve(__dirname, './views/widget/siderbar/'),
+            '@twitter':path.resolve(__dirname, './views/widget/twitter/'),
+            '@assets':path.resolve(__dirname,'./views/assets')
         }
     },
     module:{
-        rules:[
-            {
-                test: /\.ejs$/,
-                loader: 'ejs-loader?variable=data'
-            },
-            {
-                test: /\.m?js$/,
-                exclude: (file) => {
-                    /node_modules/.test(file) &&
-                        !/\.vue\.js/.test(file) // 确保在node_modules中的vue文件能够被转义
-                },
-                use: { loader: 'babel-loader' }
-            },
-            {
-                test: /\.less$/,
-                use: [
-                    'vue-style-loader',
-                    'css-loader',
-                    'less-loader'
-                ]
-            },
-            {
-                test: /\.vue$/,
-                loader: 'vue-loader'
-            },
-            {
-                test: /\.(eot|woff|woff2|ttf)([\\?]?.*)$/,
-                loader: "file-loader"
-            },
-            {
-                test: /\.css$/,
-                loader: "css-loader"
-            },
-            {test:/\.(jpg|png|jpeg|gif)$/,loader:"url-loader"}
-        ]
+        rules:rulesConfig
     },
     devServer: {
         contentBase:path.resolve(__dirname,'./dist'),
@@ -63,36 +30,8 @@ module.exports = {
         //服务端压缩是否开启
         compress:true,
         //配置服务端口号
-        port:9901
+        port:9901,
+        hot: true
     },
-    plugins:[
-        new HtmlWebpackPlugin({
-            title:"twitter",
-            template:`${pagesPath}/twitter/index.html`, 
-            filename:"twitter.html",
-            chunks:['twitter','vue'],// 当前页面需要的js
-            inject:true,
-            minify:true,
-            hash:true,
-            cache:true,
-            templateParameters:{
-                title:"Edit Twitter"
-            }
-        }),
-        new HtmlWebpackPlugin({
-            title:"twitter",
-            template:`${pagesPath}/article/index.html`, 
-            filename:"article.html",
-            chunks:['article','vue'],
-            inject:true,
-            minify:true,
-            hash:true,
-            cache:true,
-            templateParameters:{
-                title:"Article"
-            }
-        }),
-        new VueLoaderPlugin(),
-            
-    ]
+    plugins:pluginsConfig
 }

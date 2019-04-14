@@ -5,7 +5,7 @@
                 <el-input type="textarea" resize='none' :rows="2" placeholder="what's news today?" v-model="twitterText">
                 </el-input>
                 <div style="text-align:right">
-                    <el-button type="primary" size="small">发布</el-button>
+                    <el-button type="primary" size='mini'>发布</el-button>
                 </div>
             </div>
         </el-col>
@@ -14,10 +14,13 @@
 <script>
 export default {
   data() {
-    return {
+    return { 
       twitterText: ""
     };
-  }
+  },
+  mounted() {
+      
+  },
 };
 </script>
 <style lang="scss" scoped>

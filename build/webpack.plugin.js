@@ -15,6 +15,10 @@ module.exports = [
         minify:true,
         hash:true,
         cache:true,
+        meta:{
+            'Content-Security-Policy': { 'http-equiv': 'Content-Type', 'content': 'text/html; charset=utf-8' },
+            // 'charset':"UTF-8"
+        },
         templateParameters:{
             title:"Edit Twitter"
         }
@@ -28,6 +32,9 @@ module.exports = [
         minify:true,
         hash:true,
         cache:true,
+        meta:{
+            "charset":'UTF-8'
+        },
         templateParameters:{
             title:"Article"
         }
@@ -35,6 +42,9 @@ module.exports = [
     new VueLoaderPlugin(),
     new webpack.ProvidePlugin({
         Vue:['vue/dist/vue.esm.js', 'default']
+    }),
+    new webpack.DefinePlugin({// 定义全局变量
+        defineName:JSON.stringify('chan')
     }),
     new MiniCssExtractPlugin({
         // Options similar to the same options in webpackOptions.output

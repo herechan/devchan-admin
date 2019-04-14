@@ -4,7 +4,7 @@ const rulesConfig = require('./build/webpack.rules')
 const pluginsConfig = require('./build/webpack.plugin')
 module.exports = {
     entry:{
-        twtter:`${pagesPath}/twitter/index.js`,
+        twitter:`${pagesPath}/twitter/index.js`,
         article:`${pagesPath}/article/index.js`,
         vue:'vue'
     },

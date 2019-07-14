@@ -6,6 +6,7 @@ module.exports = {
     entry:{
         twitter:`${pagesPath}/twitter/index.js`,
         article:`${pagesPath}/article/index.js`,
+        release:`${pagesPath}/release/index.js`,
         vue:'vue'
     },
     output:{

@@ -2,7 +2,7 @@
   <div class="container" :class="{'mobile-state':mobileState}">
     <aside class="">
       <div class="admin-logo">
-        <img src="" alt="">
+        <img src="https://cdn.devchan.top/dist/img/user.db790e9.png" alt="">
         <p class="admin-user">ChanAdmin</p>
       </div>
       <div class="devider"></div>
@@ -10,8 +10,10 @@
         <el-input v-model="search" class="search"></el-input>
       </div>
       <ul class="aside-list li-none">
-        <li @click="triggerAside(item,index)" :class="{'aside-item-active':curIndex == index}" class="aside-item" v-for="(item, index) in asideList" :key="index">
-          <i class="iconfont" v-html="item.icon"></i>{{item.name}}</li>
+        <li @click="triggerAside(item,index)" :class="setSidebarActive(item) ? 'aside-item-active' : ''"  class="aside-item" v-for="(item, index) in asideList" :key="index">
+          <a :href="DOMAIN + item.path">
+            <i class="iconfont" v-html="item.icon"></i>{{item.name}}</a>
+        </li>
       </ul>
     </aside>
     <!-- <header>
@@ -23,7 +25,7 @@
   </div>
 </template>
 <script>
-import '@assets/common.scss'
+import "@assets/common.scss";
 export default {
   data() {
     return {
@@ -31,32 +33,44 @@ export default {
       mobileState: false,
       shadow: false,
       search: "",
+      DOMAIN:DOMAIN,
       asideList: [
         {
           name: "Writting Center",
           icon: "&#xe633;",
-          path: "/admin"
+          path: "/article.html"
         },
         {
           name: "Twitter",
           icon: "&#xe749;",
-          path: ""
+          path: "/twitter.html"
         },
         {
-          name: "Draft",
-          icon: "&#xe64e;",
-          path: ""
+          name: 'Release',
+          icon:'&#xe653;',
+          path: '/release.html'
         }
-        
+        // {
+        //   name: "Draft",
+        //   icon: "&#xe64e;",
+        //   path: ""
+        // }
       ]
     };
   },
-  
+  mounted() {
+    
+  },
   methods: {
     triggerAside(item, index) {
       this.curIndex = index;
-    //   this.$router.push(item.path);
+      //   this.$router.push(item.path);
       this.removeShadow();
+    },
+    setSidebarActive(item){
+      if(location.pathname === item.path){
+        return true
+      }
     },
     triggerMenu() {
       this.mobileState = !this.mobileState;
@@ -68,7 +82,7 @@ export default {
       var shadow = document.querySelector(".shadow").style;
       shadow.display = "block";
       setTimeout(() => {
-        shadow.opacity = .4;
+        shadow.opacity = 0.4;
       }, 20);
     },
     removeShadow() {
@@ -87,13 +101,12 @@ export default {
 <style lang="scss" scoped>
 .container {
   position: relative;
-  .sidebar-collapse{
-      font-size: 22px;
-      position: absolute;
-      top: 20px;
-      right: 20px;
-      display: none;
-
+  .sidebar-collapse {
+    font-size: 22px;
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    display: none;
   }
 }
 .shadow {
@@ -147,13 +160,21 @@ aside {
   }
   .aside-list {
     padding-left: 0;
+    a{
+      display: block;
+      height: 50px;
+      width: 260px;
+        line-height: 50px;
+    padding-left: 20px;
+    box-sizing: border-box;
+    }
     .aside-item {
-      padding: 15px 20px;
+      // padding: 15px 20px;
       transition: 0.1s ease;
       user-select: none;
       cursor: pointer;
-      display: flex;
-      align-items: center;
+      // display: flex;
+      // align-items: center;
       .iconfont {
         margin-right: 10px;
         font-size: 18px;
@@ -162,6 +183,9 @@ aside {
     .aside-item-active {
       color: #fff;
       background-color: $mainColor;
+      a{
+        color: #fff;
+      }
     }
   }
 }
@@ -197,8 +221,8 @@ article {
       right: -260px;
       left: auto;
     }
-    .sidebar-collapse{
-        display: block;
+    .sidebar-collapse {
+      display: block;
     }
     article {
       padding-left: 20px;

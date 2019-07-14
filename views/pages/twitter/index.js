@@ -4,6 +4,7 @@ import ElementUI from 'element-ui';
 import Editor from "@twitter/editor.vue"
 import '@assets/common.scss'
 import  "./index.scss"
+import axios from 'axios'
 Vue.use(ElementUI)
 new Vue({
     el:".multi-wrap",
@@ -15,7 +16,6 @@ new Vue({
         Editor
     },
     mounted() {
-        // document.querySelector(".temp").style.display = 'block'
-        console.log(defineName)
+        
     },
 })

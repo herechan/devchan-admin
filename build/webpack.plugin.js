@@ -5,6 +5,8 @@ const VueLoaderPlugin = require('vue-loader/lib/plugin')
 const webpack = require("webpack")
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const CleanWebpackPlugin = require('clean-webpack-plugin');
+const devMode = process.env.NODE_ENV !== 'production';
+const DOMAIN = devMode ? 'http://127.0.0.1:9901' : ''
 module.exports = [
     new HtmlWebpackPlugin({
         title:"twitter",
@@ -44,13 +46,14 @@ module.exports = [
         Vue:['vue/dist/vue.esm.js', 'default']
     }),
     new webpack.DefinePlugin({// 定义全局变量
-        defineName:JSON.stringify('chan')
+        DOMAIN: JSON.stringify(DOMAIN),
+        api:JSON.stringify('http://127.0.0.1:8009/api/admin')
     }),
     new MiniCssExtractPlugin({
         // Options similar to the same options in webpackOptions.output
         // both options are optional
-        filename: "[name].css",
-        chunkFilename: "[id].css"
+        filename: devMode ? '[name].css' : '[name].[hash].css',
+        chunkFilename: devMode ? '[id].css' : '[id].[hash].css',
       }),
     //   new webpack.HotModuleReplacementPlugin()
     new CleanWebpackPlugin(),

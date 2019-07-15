@@ -8,19 +8,24 @@
                 <el-card>
                     <span slot="header">发布信息</span>
                     <div class="release-body">
-                        <p class="first-title">发布版本</p>
-                        <el-input v-model="releaseVersion" placeholder="请输入发布的分支，默认为master"></el-input>
+                        <p class="first-title">发布项目</p>
+                        <div>
+                            <el-radio v-model="releaseProject" label="devchan" border>devchan</el-radio>
+                            <el-radio v-model="releaseProject" label="devchan-admin" border>devchan-admin</el-radio>
+                        </div>
+                        <p class="title">发布分支</p>
+                        <el-input v-model="releaseBranch" placeholder="请输入发布的分支，默认为master"></el-input>
                         <p class="title">快捷版本</p>
                         <div>
-                            <el-radio v-model="releaseVersion" label="master" border>master</el-radio>
-                            <el-radio v-model="releaseVersion" label="dev" border>dev</el-radio>
+                            <el-radio v-model="releaseBranch" label="master" border>master</el-radio>
+                            <el-radio v-model="releaseBranch" label="dev" border>dev</el-radio>
                         </div>
                         <p class="title">发布控制</p>
                         <div>
                             <el-button type="primary" @click="checkUpdate">检查更新</el-button>
                             <el-button type="warning" :disabled="noUpdate" @click="versionReplace">版本替换</el-button>
                             <el-button type="success" :disabled="noUpdate" @click="releaseTest">测试环境</el-button>
-                            <el-button type="danger" :disabled="noUpdate"  @click="releaseOnline">正式环境</el-button>
+                            <el-button type="danger" :disabled="noUpdate" @click="releaseOnline">正式环境</el-button>
                         </div>
                         <p class="title">发布信息</p>
                         <el-input type="textarea" :rows="15" placeholder="" v-model="releaseInfo" disabled resize="none">

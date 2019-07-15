@@ -4,14 +4,16 @@ import ElementUI from 'element-ui';
 import '@assets/common.scss'
 import  "./index.scss"
 import axios from 'axios'
+// SSNI-518
 Vue.use(ElementUI)
 new Vue({
     el:".multi-wrap",
     data:{
         name:'Casper',
-        releaseVersion:'',
+        releaseBranch:'',
         releaseInfo:'',
-        noUpdate: true
+        noUpdate: true,
+        releaseProject: ''
     },
     components:{
         siderbar,
@@ -21,10 +23,31 @@ new Vue({
     },
     methods: {
         checkUpdate() {
+            if (!this.releaseProject) {
+                return this.$message({
+                    type: 'error',
+                    message: '请选择要发布的项目'
+                })
+            }
+            if (!this.releaseBranch) {
+                return this.$message({
+                    type: 'error',
+                    message: '请选择要发布的分支'
+                })
+            }
+            this.releaseInfo = `正在检查${this.releaseBranch}分支的更新...`
             this.noUpdate = false
-            axios.get(`${RELEASE_API}/checkUpdate`)
+            axios.get(`${RELEASE_API}/checkUpdate`,{
+                params:{
+                    branch: this.releaseBranch || 'master',
+                    project: this.releaseProject
+                }
+            })
             .then(r=>{
-                console.log(r)
+                // console.log(r)
+                if (r.status === 200) {
+                    this.releaseInfo = r.data
+                }
             }).catch(e=>{
 
             })

@@ -4,7 +4,6 @@ import ElementUI from 'element-ui';
 import '@assets/common.scss'
 import  "./index.scss"
 import axios from 'axios'
-// SSNI-518
 Vue.use(ElementUI)
 new Vue({
     el:".multi-wrap",
@@ -36,7 +35,7 @@ new Vue({
                 })
             }
             this.releaseInfo = `正在检查${this.releaseBranch}分支的更新...`
-            this.noUpdate = false
+            // this.noUpdate = false
             axios.get(`${RELEASE_API}/checkUpdate`,{
                 params:{
                     branch: this.releaseBranch || 'master',
@@ -44,16 +43,34 @@ new Vue({
                 }
             })
             .then(r=>{
-                // console.log(r)
                 if (r.status === 200) {
-                    this.releaseInfo = r.data
+                    this.releaseInfo = r.data.data
+                    if(r.data.status === 1){
+                        this.noUpdate = false
+                    } else {
+                        this.noUpdate = true
+                    }
                 }
             }).catch(e=>{
 
             })
         },
         versionReplace(){
-            // this.$confirm
+            axios.get(`${RELEASE_API}/replaceVersion`, {
+                params: {
+                    branch: this.releaseBranch || 'master',
+                    project: this.releaseProject
+                }
+            }).then(r =>{
+                if(r.status === 200){
+                    this.releaseInfo = r.data.data
+                    if(r.data.status === 1){
+                        this.noUpdate = false
+                    } else {
+                        this.noUpdate = true
+                    }
+                }
+            })
         },
         releaseTest(){
             this.$confirm('确认发布到测试环境吗？', '提示',{
@@ -62,11 +79,12 @@ new Vue({
                 'type': 'warning',
                 closeOnClickModal: false
             }).then(() => {
-                // this.$message({
-                //   type: 'success',
-                //   message: '开始发布测试环境!'
-                // });
-                // axios.get(`${RELEASE_API}/`)
+                axios.get(`${RELEASE_API}/releaseTest`)
+                .then(r =>{
+                    if(r.status === 200){
+
+                    }
+                })
               }).catch(() => {
                 this.$message({
                   type: 'info',

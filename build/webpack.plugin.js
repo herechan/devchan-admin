@@ -2,7 +2,7 @@ const path = require('path');
 const pagesPath = path.resolve(__dirname, '../views/pages/')
 const HtmlWebpackPlugin = require("html-webpack-plugin")
 const VueLoaderPlugin = require('vue-loader/lib/plugin')
-const webpack = require("webpack")
+const webpack = require("webpack");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const devMode = process.env.NODE_ENV == 'production';

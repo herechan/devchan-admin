@@ -5,7 +5,7 @@ const VueLoaderPlugin = require('vue-loader/lib/plugin')
 const webpack = require("webpack")
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const CleanWebpackPlugin = require('clean-webpack-plugin');
-const devMode = process.env.NODE_ENV !== 'production';
+const devMode = process.env.NODE_ENV == 'production';
 const DOMAIN = devMode ? 'http://127.0.0.1:9901' : 'https://www.devchan.top/admin'
 const RELEASE_API = devMode ? 'http://127.0.0.1:9902' : 'https://www.devchan.top/admin/release' // 发布系统服务器api
 module.exports = [
@@ -36,7 +36,7 @@ module.exports = [
         hash:true,
         cache:true,
         meta:{
-            "charset":'UTF-8'
+            'Content-Security-Policy': { 'http-equiv': 'Content-Type', 'content': 'text/html; charset=utf-8' },
         },
         templateParameters:{
             title:"Article"
@@ -52,7 +52,7 @@ module.exports = [
         hash:true,
         cache:true,
         meta:{
-            "charset":'UTF-8'
+            'Content-Security-Policy': { 'http-equiv': 'Content-Type', 'content': 'text/html; charset=utf-8' },
         },
         templateParameters:{
             title:"Release Center"

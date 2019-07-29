@@ -5,9 +5,10 @@ const VueLoaderPlugin = require('vue-loader/lib/plugin')
 const webpack = require("webpack");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const CleanWebpackPlugin = require('clean-webpack-plugin');
-const devMode = process.env.NODE_ENV == 'production';
+const devMode = process.env.NODE_ENV !== 'production';
 const DOMAIN = devMode ? 'http://127.0.0.1:9901' : 'https://www.devchan.top/admin'
 const RELEASE_API = devMode ? 'http://127.0.0.1:9902' : 'https://www.devchan.top/admin/release' // 发布系统服务器api
+console.log(RELEASE_API)
 module.exports = [
     new HtmlWebpackPlugin({
         title:"twitter",

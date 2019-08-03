@@ -8,7 +8,6 @@ const CleanWebpackPlugin = require('clean-webpack-plugin');
 const proMode = process.env.NODE_ENV === 'production';
 const DOMAIN = proMode ?  'https://www.devchan.top/admin' : 'http://127.0.0.1:9901'
 const RELEASE_API = proMode ? 'https://www.devchan.top/admin/release' : 'http://127.0.0.1:9902' // 发布系统服务器api
-console.log(proMode)
 module.exports = [
     new HtmlWebpackPlugin({
         title:"twitter",

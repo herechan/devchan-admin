@@ -5,10 +5,10 @@ const VueLoaderPlugin = require('vue-loader/lib/plugin')
 const webpack = require("webpack");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const CleanWebpackPlugin = require('clean-webpack-plugin');
-const devMode = process.env.NODE_ENV !== 'production';
-const DOMAIN = devMode ? 'http://127.0.0.1:9901' : 'https://www.devchan.top/admin'
-const RELEASE_API = devMode ? 'http://127.0.0.1:9902' : 'https://www.devchan.top/admin/release' // 发布系统服务器api
-console.log(RELEASE_API)
+const proMode = process.env.NODE_ENV === 'production';
+const DOMAIN = proMode ?  'https://www.devchan.top/admin' : 'http://127.0.0.1:9901'
+const RELEASE_API = proMode ? 'https://www.devchan.top/admin/release' : 'http://127.0.0.1:9902' // 发布系统服务器api
+console.log(proMode)
 module.exports = [
     new HtmlWebpackPlugin({
         title:"twitter",
@@ -71,8 +71,8 @@ module.exports = [
     new MiniCssExtractPlugin({
         // Options similar to the same options in webpackOptions.output
         // both options are optional
-        filename: devMode ? '[name].css' : '[name].[hash].css',
-        chunkFilename: devMode ? '[id].css' : '[id].[hash].css',
+        filename: proMode ? '[name].css' : '[name].[hash].css',
+        chunkFilename: proMode ? '[id].css' : '[id].[hash].css',
       }),
     //   new webpack.HotModuleReplacementPlugin()
     new CleanWebpackPlugin(),

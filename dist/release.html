@@ -1,4 +1,4 @@
-<head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link href="release.css?12f156d1942bd0ab59cc" rel="stylesheet"></head><!-- <meta charset="UTF-8"> -->
+<head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><link href="release.css?ddfa11dfa022a96055e4" rel="stylesheet"></head><!-- <meta charset="UTF-8"> -->
 <div class="multi-wrap">
     <siderbar></siderbar>
     <div class="multi-article">
@@ -20,12 +20,16 @@
                             <el-radio v-model="releaseBranch" label="master" border>master</el-radio>
                             <el-radio v-model="releaseBranch" label="dev" border>dev</el-radio>
                         </div>
+                        <p class="title">发布环境</p>
+                        <div>
+                            <el-radio v-model="env" label="master" border>线上环境</el-radio>
+                            <el-radio v-model="env" label="dev" border>测试环境</el-radio>
+                        </div>
                         <p class="title">发布控制</p>
                         <div>
                             <el-button type="primary" @click="checkUpdate">检查更新</el-button>
                             <el-button type="warning" :disabled="noUpdate" @click="versionReplace">版本替换</el-button>
-                            <el-button type="success" :disabled="noUpdate" @click="releaseTest">测试环境</el-button>
-                            <el-button type="danger" :disabled="noUpdate" @click="releaseOnline">正式环境</el-button>
+                            <el-button type="success" :disabled="noUpdate" @click="startRelease">开始发布</el-button>
                         </div>
                         <p class="title">发布信息</p>
                         <el-input class="textarea-release-info" type="textarea" :rows="15" placeholder="" v-model="releaseInfo" disabled="disabled" resize="none">
@@ -35,4 +39,4 @@
             </el-col>
         </el-row>
     </div>
-</div><script type="text/javascript" src="release.js?12f156d1942bd0ab59cc"></script>
+</div><script type="text/javascript" src="release.js?ddfa11dfa022a96055e4"></script>

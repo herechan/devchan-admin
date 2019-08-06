@@ -12,7 +12,8 @@ new Vue({
         releaseBranch:'',
         releaseInfo:'',
         noUpdate: true,
-        releaseProject: ''
+        releaseProject: '',
+        env: ''
     },
     components:{
         siderbar,
@@ -34,12 +35,19 @@ new Vue({
                     message: '请选择要发布的分支'
                 })
             }
-            this.releaseInfo = `正在检查${this.releaseBranch}分支的更新...`
-            // this.noUpdate = false
+            if (!this.env) {
+                return this.$message({
+                    type: 'error',
+                    message: '请选择要发布的环境'
+                })
+            }
+            const env = this.env === 'dev' ? '测试' : '线上'
+            this.releaseInfo = `正在检查---${env}---${this.releaseBranch}---分支的更新...`
             axios.get(`${RELEASE_API}/checkUpdate`,{
                 params:{
                     branch: this.releaseBranch || 'master',
-                    project: this.releaseProject
+                    project: this.releaseProject,
+                    env: this.env
                 }
             })
             .then(r=>{
@@ -59,7 +67,8 @@ new Vue({
             axios.get(`${RELEASE_API}/replaceVersion`, {
                 params: {
                     branch: this.releaseBranch || 'master',
-                    project: this.releaseProject
+                    project: this.releaseProject,
+                    env: this.env
                 }
             }).then(r =>{
                 if(r.status === 200){
@@ -92,8 +101,9 @@ new Vue({
                 });          
               });
         },
-        releaseOnline(){
-            this.$confirm('确认发布到正式环境吗？', '提示',{
+        startRelease(){
+            const env = this.env === 'dev' ? '测试' : '线上'
+            this.$confirm(`确认发布到${env}环境吗？`, '提示',{
                 'confirmButtonText': '确定',
                 'cancelButtonText': '取消',
                 'type': 'warning',
@@ -101,7 +111,7 @@ new Vue({
             }).then(() => {
                 this.$message({
                   type: 'success',
-                  message: '开始发布正式环境!'
+                  message: '开始发布正式环境...'
                 });
               }).catch(() => {
                 this.$message({

@@ -113,6 +113,12 @@ new Vue({
                   type: 'success',
                   message: '开始发布正式环境...'
                 });
+                axios.get(`${RELEASE_API}/startRelease`)
+                .then(r =>{
+                    if(r.status === 200){
+
+                    }
+                })
               }).catch(() => {
                 this.$message({
                   type: 'info',
